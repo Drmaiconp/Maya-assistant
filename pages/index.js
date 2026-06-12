@@ -30,7 +30,9 @@ export default function Maya() {
     try {
       const res = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: newMessages.map((m) => ({ role: m.role, content: m.content })) }) });
       const data = await res.json();
-      setMessages([...newMessages, { role: "assistant", content: data.text || "Erro ao processar." }]);
+      setMessages([...newMessages, { role: "assistant", content: data.reply || "Erro ao processar." }]);
+
+      
     } catch { setMessages([...newMessages, { role: "assistant", content: "Erro de conexão." }]); }
     finally { setLoading(false); inputRef.current?.focus(); }
   };
