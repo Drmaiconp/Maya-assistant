@@ -1,7 +1,6 @@
 export default async function handler(req, res) {
-  res.setHeader("Content-Type", "application/json");
   if (req.method !== "POST") {
-    res.end(JSON.stringify({ error: "Method not allowed" }));
+    res.json({ error: "Method not allowed" });
     return;
   }
   try {
@@ -16,14 +15,14 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
         max_tokens: 1000,
-        system: "Você é Maya, assistente pessoal do Dr. Maicon. Responda em português. Reuniões nunca antes das 10h sem autorização.",
+        system: "Você é Maya, assistente pessoal do Dr. Maicon. Responda em português.",
         messages,
       }),
     });
     const data = await r.json();
     const text = data.content?.filter((b) => b.type === "text").map((b) => b.text).join("\n") || "Erro.";
-    res.end(JSON.stringify({ text }));
+    res.json({ text });
   } catch (e) {
-    res.end(JSON.stringify({ error: "Erro na API" }));
+    res.json({ error: "Erro na API" });
   }
 }
