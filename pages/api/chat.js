@@ -27,10 +27,12 @@ export default async function handler(req, res) {
             authorization_token: process.env.STRIPE_SECRET_KEY,
           },
         ],
-      }),
+     data.reply || data.error || "Erro ao processar."
+ }),
     });
+data.reply || data.error || "Erro ao processar."
 
-    const data = await response.json();
+    
     if (data.error) return res.status(500).json({ error: data.error.message });
 
     const reply = data.content?.filter(b => b.type === "text").map(b => b.text).join("\n") || "Sem resposta.";
