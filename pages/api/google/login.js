@@ -11,7 +11,9 @@ export default function handler(req, res) {
     state,
     scope: [
       "https://www.googleapis.com/auth/calendar.readonly",
+      "https://www.googleapis.com/auth/calendar.events",
       "https://www.googleapis.com/auth/gmail.readonly",
+      "https://www.googleapis.com/auth/gmail.compose",
     ].join(" "),
   });
   res.setHeader("Set-Cookie", `google_state=${state}; Path=/api/google; HttpOnly; Secure; SameSite=Lax; Max-Age=600`);
